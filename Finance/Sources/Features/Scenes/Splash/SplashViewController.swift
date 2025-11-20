@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class SplashViewController: UIViewController {
+  private let gradientLayer = Gradients.black
   let contentView: SplashView
   public weak var flowDelegate: SplashFlowDelegate?
   
@@ -25,10 +26,22 @@ class SplashViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    startBreathingAnimation()
     setup()
   }
   
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    gradientLayer.frame = view.bounds
+  }
+  
   private func setup() {
+    self.navigationController?.navigationBar.isHidden = true
+    self.view.backgroundColor = .clear
+    
+    // Add the gradient background:
+    self.view.layer.insertSublayer(gradientLayer, at: 0)
+    
     self.view.addSubview(contentView)
     
     setupConstraints()
@@ -36,5 +49,16 @@ class SplashViewController: UIViewController {
   
   private func setupConstraints() {
     setupContentViewToBounds(contentView: contentView)
+  }
+}
+
+//MARK: - Animations
+extension SplashViewController {
+  private func startBreathingAnimation() {
+    UIView.animate(withDuration: 1, delay: 0.0, animations: {
+      self.contentView.logoImageView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+    }, completion: { _ in
+//      self.decideNavigationFlow()
+    })
   }
 }
