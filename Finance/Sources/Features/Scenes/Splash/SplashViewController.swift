@@ -50,6 +50,10 @@ class SplashViewController: UIViewController {
   private func setupConstraints() {
     setupContentViewToBounds(contentView: contentView)
   }
+  
+  private func decideNavigationFlow() {
+    self.flowDelegate?.navigateToLogin()
+  }
 }
 
 //MARK: - Animations
@@ -58,7 +62,7 @@ extension SplashViewController {
     UIView.animate(withDuration: 1, delay: 0.0, animations: {
       self.contentView.logoImageView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
     }, completion: { _ in
-//      self.decideNavigationFlow()
+      self.decideNavigationFlow()
     })
   }
 }

@@ -28,6 +28,12 @@ class FlowController {
 
 extension FlowController: SplashFlowDelegate {
   func navigateToLogin() {
-    // TODO
+    let loginViewController = viewControllersFactory.makeLoginViewController(flowDelegate: self)
+    navigationController?.pushViewController(loginViewController, animated: true)
   }
+}
+
+// MARK: - Login
+
+extension FlowController: LoginFlowDelegate {
 }
